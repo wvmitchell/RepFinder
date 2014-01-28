@@ -14,7 +14,8 @@ class Fetcher
     @queue_in.process do |fetched|
       info = fetched.split(',')
       legislators = Sunlight::Legislator.all_in_zipcode(info[1])
-
+      names = legislators.collect {|legislator| legislator.firstname + ' ' + legislator.lastname}
+      @queue_out.push(fetched + ' ' + names.to_s)
     end
   end
 end
