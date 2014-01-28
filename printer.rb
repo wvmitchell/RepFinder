@@ -2,7 +2,7 @@ require 'redis-queue'
 
 class Printer
 
-  def intialize
+  def initialize
     @out_queue = Redis::Queue.new('to_print', 'printing', :redis => Redis.new)
   end
 
