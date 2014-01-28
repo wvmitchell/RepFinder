@@ -1,4 +1,5 @@
 require 'redis-queue'
+require 'csv'
 
 class Printer
 
@@ -7,8 +8,12 @@ class Printer
   end
 
   def print
+    file_out = CSV.open('attendees_with_legislators.csv', 'wb', :headers => true)
+    file_out << ['id', 'zipcode', 'name', 'legislators']
     @out_queue.process do |message|
-      puts message
+      arr = message.split(',')
+      file_out << arr
     end
+    file_out.close
   end
 end

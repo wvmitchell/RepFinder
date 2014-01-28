@@ -15,7 +15,7 @@ class Fetcher
       info = fetched.split(',')
       legislators = Sunlight::Legislator.all_in_zipcode(info[1])
       names = legislators.collect {|legislator| legislator.firstname + ' ' + legislator.lastname}
-      @queue_out.push(fetched + ' ' + names.to_s)
+      @queue_out.push(fetched + ', ' + names.join(' | '))
     end
   end
 end
